@@ -486,7 +486,7 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
 ####### 設定呈現標題 
 html_temp = """
 		<div style="background-color:#3872fb;padding:10px;border-radius:10px">
-		<h1 style="color:white;text-align:center;"> 112學年度新生學習適應調查 </h1>
+		<h1 style="color:white;text-align:center;"> 112學年度大三學生學習經驗調查 </h1>
 		</div>
 		"""
 stc.html(html_temp)
@@ -502,7 +502,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">以下調查與計算母體為大一填答同學 1674人</p>
+<p class="bold-small-font">以下調查與計算母體為大三填答同學 2189人</p>
 """, unsafe_allow_html=True)
 
 st.markdown("##")  ## 更大的间隔
@@ -754,6 +754,7 @@ with st.expander("1-1.各班級填答人數與填答比例:"):
     #### 填答比例
     ### 合并为DataFrame
     df_填答比例 = pd.concat([df_ID_departments_unique_counts, df_junior_original_departments_unique_counts], axis=1)
+    # type(df_填答比例)  ## pandas.core.frame.DataFrame
     ### 修改欄位名稱
     df_填答比例.columns = ['學生人數','填答人數']
     ### 计算两行的比例并创建新行
@@ -817,7 +818,8 @@ with st.expander("1-1.各班級填答人數與填答比例:"):
     # Name: 填答比例, dtype: float64
     # '''
 
-    
+    ### 使用 reset_index 方法將索引變為列
+    df_填答比例 = df_填答比例.reset_index()
     
     
     
