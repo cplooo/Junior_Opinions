@@ -508,7 +508,7 @@ st.markdown("""
 st.markdown("##")  ## 更大的间隔
 
 
-university_faculties_list = ['全校','理學院','資訊學院','管理學院','人文暨社會科學院','外語學院','國際學院']
+university_faculties_list = ['全校','理學院','資訊學院','管理學院','人社院','外語學院','國際學院']
 # global 系_院_校
 ####### 選擇系院校
 ###### 選擇 系 or 院 or 校:
