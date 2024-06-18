@@ -566,7 +566,16 @@ column_title = []
 
 
 ####### 問卷的各項問題
-###### 一. 基本資料
+st.markdown("""
+<style>
+.bold-small-font {
+    font-size:18px !important;
+    font-weight:bold !important;
+}
+</style>
+<p class="bold-small-font">基本資料</p>
+""", unsafe_allow_html=True)
+
 ###### 1-1.各班級填答人數與填答比例
 with st.expander("1-1.各班級填答人數與填答比例:"):
     
