@@ -856,12 +856,12 @@ with st.expander("1-2.身分別:"):
     
     item_name = "身分別"
     df_身分別 = df_junior_original['身分'].value_counts(ascending=False)
-    '''
-    本地生    2098
-    外籍生      70
-    僑生       21
-    Name: 身分, dtype: int64
-    '''
+    # '''
+    # 本地生    2098
+    # 外籍生      70
+    # 僑生       21
+    # Name: 身分, dtype: int64
+    # '''
     
     ##### 使用 reset_index 方法將 Series 'df_身分別' 轉換為 DataFrame
     df_身分別_df = df_身分別.reset_index()
