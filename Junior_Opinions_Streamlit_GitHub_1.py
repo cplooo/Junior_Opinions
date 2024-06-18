@@ -862,8 +862,15 @@ with st.expander("1-2.身分別:"):
     僑生       21
     Name: 身分, dtype: int64
     '''
+    
+    ##### 使用 reset_index 方法將 Series 'df_身分別' 轉換為 DataFrame
+    df_身分別_df = df_身分別.reset_index()
+    
+    # 重命名新的 DataFrame 的欄位
+    df_身分別_df.columns = ['身分別', '人數']
+    
     ##### 使用Streamlit展示DataFrame 
     # st.write(choice)
     st.write(f"<h6>{item_name}</h6>", unsafe_allow_html=True)
-    st.write(df_身分別.to_html(index=False), unsafe_allow_html=True)
+    st.write(df_身分別_df.to_html(index=False), unsafe_allow_html=True)
     st.markdown("##")  ## 更大的间隔
