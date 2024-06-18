@@ -843,8 +843,27 @@ with st.expander("1-1.各班級填答人數與填答比例:"):
     # ##### 存到 list 'df_streamlit'
     # df_streamlit.append(result_df)  
 
-    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    ##### 使用Streamlit展示DataFrame 
     # st.write(choice)
     st.write(f"<h6>{item_name}</h6>", unsafe_allow_html=True)
     st.write(df_填答比例.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+    
+    
+    
+###### 1-2.身分別
+with st.expander("1-2.身分別:"):
+    
+    item_name = "身分別"
+    df_身分別 = df_junior_original['身分'].value_counts(ascending=False)
+    '''
+    本地生    2098
+    外籍生      70
+    僑生       21
+    Name: 身分, dtype: int64
+    '''
+    ##### 使用Streamlit展示DataFrame 
+    # st.write(choice)
+    st.write(f"<h6>{item_name}</h6>", unsafe_allow_html=True)
+    st.write(df_身分別.to_html(index=False), unsafe_allow_html=True)
     st.markdown("##")  ## 更大的间隔
