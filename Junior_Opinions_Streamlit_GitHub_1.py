@@ -185,11 +185,14 @@ combined_df = pd.concat(dataframes, keys=selected_options)
 ####### 定義相關函數 (Part 2): 因為函數 'Draw' 的定義需要使用 'dataframes','combined_df' 來進行相關計算, 因此要放在以上 '預先設定' 之後才會有 'dataframes', 'combined_df' 的值
 ###### 畫圖形(單一學系或學院, 比較圖形)
 @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
-def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=pd.DataFrame(), selected_options=[], dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0):
+def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=pd.DataFrame(), selected_options=[], dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name='', rank=False, rank_number=5, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order):
     ##### 使用Streamlit畫單一圖
     if 系_院_校 == '0':
-        collections = [df_junior, df_junior_faculty, df_junior_original]
-        dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+        collections = [df_junior, df_junior_faculty, df_junior_school]
+        if rank == True:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+        else:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
         ## 形成所有學系'項目'欄位的所有值
         # desired_order  = list(set([item for df in dataframes for item in df['項目'].tolist()]))
         # desired_order  = list(set([item for item in dataframes[0]['項目'].tolist()])) 
@@ -256,12 +259,10 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         ### 设置x,y轴刻度标签
         ax.set_yticks(r + bar_width*(len(dataframes) / 2))  # 调整位置以使标签居中对齐到每个条形
         if fontsize_adjust==0:
-            # ax.set_yticklabels(dataframes[0]['項目'].values)
-            ax.set_yticklabels(desired_order)
+            ax.set_yticklabels(dataframes[0]['項目'].values)
             ax.tick_params(axis='x')
         if fontsize_adjust==1:
-            # ax.set_yticklabels(dataframes[0]['項目'].values, fontsize=yticklabel_fontsize)
-            ax.set_yticklabels(desired_order, fontsize=yticklabel_fontsize)
+            ax.set_yticklabels(dataframes[0]['項目'].values, fontsize=yticklabel_fontsize)
             ## 设置x轴刻度的字体大小
             ax.tick_params(axis='x', labelsize=xticklabel_fontsize)
         # ax.set_yticklabels(dataframes[0]['項目'].values)
@@ -287,7 +288,8 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         ### 在Streamlit中显示
         st.pyplot(plt)
 
-    if 系_院_校 == '1' or '2':
+    if 系_院_校 == '1':
+    # else:  ## 包含 系_院_校 == '1', 系_院_校 == '2'
         #### 設置中文顯示
         # matplotlib.rcParams['font.family'] = 'Microsoft YaHei'
         # matplotlib.rcParams['font.sans-serif'] = ['Microsoft YaHei']
@@ -298,6 +300,69 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         #### 绘制条形图
         ### 反轉 dataframe result_df 的所有行的值的次序,  使得表與圖的項目次序一致
         result_df = result_df.iloc[::-1].reset_index(drop=True)
+        if rank == True:
+            result_df = result_df.head(rank_number)
+
+        # plt.barh(result_df['項目'], result_df['人數'], label=choice, width=bar_width)
+        plt.barh(result_df['項目'], result_df['人數'], label=choice)
+        #### 標示比例數據
+        for i in range(len(result_df['項目'])):
+            if fontsize_adjust==0:
+                plt.text(result_df['人數'][i]+1, result_df['項目'][i], f'{result_df.iloc[:, 2][i]:.1%}')
+            if fontsize_adjust==1:
+                plt.text(result_df['人數'][i]+1, result_df['項目'][i], f'{result_df.iloc[:, 2][i]:.1%}', fontsize=annotation_fontsize)
+            
+        #### 添加一些图形元素
+        if fontsize_adjust==0:
+            plt.title(item_name)
+            plt.xlabel('人數')
+        if fontsize_adjust==1:
+            plt.title(item_name, fontsize=title_fontsize)
+            plt.xlabel('人數', fontsize=xlabel_fontsize)
+        
+        #plt.ylabel('本校現在所提供的資源或支援事項')
+        #### 调整x轴和y轴刻度标签的字体大小
+        if fontsize_adjust==0:
+            # plt.tick_params(axis='both')
+            ## 设置x轴刻度的字体大小
+            plt.tick_params(axis='x')
+            ## 设置y轴刻度的字体大小
+            plt.tick_params(axis='y')
+        if fontsize_adjust==1:
+            # plt.tick_params(axis='both', labelsize=xticklabel_fontsize)  # 同时调整x轴和y轴 
+            ## 设置x轴刻度的字体大小
+            plt.tick_params(axis='x', labelsize=xticklabel_fontsize)
+            ## 设置y轴刻度的字体大小
+            plt.tick_params(axis='y', labelsize=yticklabel_fontsize)
+        
+        if fontsize_adjust==0:
+            plt.legend()
+        if fontsize_adjust==1:
+            plt.legend(fontsize=legend_fontsize)
+        
+        #### 显示网格线
+        plt.grid(True, linestyle='--', linewidth=0.5, color='gray')
+        #### 显示图形
+        ### 一般顯示
+        # plt.show()
+        ### 在Streamlit中显示
+        st.pyplot(plt)
+        
+    if 系_院_校 == '2':
+    # else:  ## 包含 系_院_校 == '1', 系_院_校 == '2'
+        #### 設置中文顯示
+        # matplotlib.rcParams['font.family'] = 'Microsoft YaHei'
+        # matplotlib.rcParams['font.sans-serif'] = ['Microsoft YaHei']
+        matplotlib.rcParams['font.family'] = 'Noto Sans CJK JP'
+        matplotlib.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
+        #### 创建图形和坐标轴
+        plt.figure(figsize=(width2, heigh2))
+        #### 绘制条形图
+        ### 反轉 dataframe result_df 的所有行的值的次序,  使得表與圖的項目次序一致
+        result_df = result_df.iloc[::-1].reset_index(drop=True)
+        if rank == True:
+            result_df = result_df.head(rank_number)
+
         # plt.barh(result_df['項目'], result_df['人數'], label=choice, width=bar_width)
         plt.barh(result_df['項目'], result_df['人數'], label=choice)
         #### 標示比例數據
@@ -344,21 +409,40 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         st.pyplot(plt)
 
 
-    ##### 使用streamlit 畫比較圖
-    # st.subheader("不同單位比較")
-    if 系_院_校 == '0':
-        collections = [df_junior_original[df_junior_original['科系']==i] for i in selected_options]
-        dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
+
+    ##### 使用streamlit 畫比較圖 
+    # st.subheader("不同單位比較")    
+    # if 系_院_校 == '0' or '1' or '2':
+    ## 以下選擇單位要從 df_junior_original 選, 若從df_junior選擇, 就是限定某單位了, 再從此單位去選別單位, 是選不到的.
+    if 系_院_校 == '0': 
+        collections = [df_junior_school[df_junior_school['科系']==i] for i in selected_options]
+        
+        if rank == True:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+        else:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
+
+
+        # #### 只看第一個選擇學系的項目(已經是按照次數高至低的項目順序排列), 並且反轉次序使得表與圖的項目次序一致
+        # desired_order  = [item for item in dataframes[0]['項目'].tolist()]  ## 只看第一個選擇學系的項目
+        # desired_order = desired_order[::-1]  ## 反轉次序使得表與圖的項目次序一致
         ## 形成所有學系'項目'欄位的所有值
         # desired_order  = list(set([item for df in dataframes for item in df['項目'].tolist()])) 
         desired_order  = list(dict.fromkeys([item for df in dataframes for item in df['項目'].tolist()]))
         desired_order = desired_order[::-1]  ## 反轉次序使得表與圖的項目次序一致
+
         ## 缺的項目值加以擴充， 並統一一樣的項目次序
         dataframes = [adjust_df(df, desired_order) for df in dataframes]
         combined_df = pd.concat(dataframes, keys=selected_options)
     elif 系_院_校 == '1':
-        collections = [df_junior_original[df_junior_original['學院']==i] for i in selected_options]
-        dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
+        collections = [df_junior_school[df_junior_school['學院']==i] for i in selected_options]
+        
+        if rank == True:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+        else:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
+
+        
         ## 形成所有學系'項目'欄位的所有值
         # desired_order  = list(set([item for df in dataframes for item in df['項目'].tolist()])) 
         desired_order  = list(dict.fromkeys([item for df in dataframes for item in df['項目'].tolist()]))
@@ -369,15 +453,14 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
     elif 系_院_校 == '2':
         # collections = [df_junior_original[df_junior_original['學院'].str.contains(i, regex=True)] for i in selected_options if i!='全校' else df_junior_original]
         # collections = [df_junior_original] + collections
-        collections = [df_junior_original if i == '全校' else df_junior_original[df_junior_original['學院']==i] for i in selected_options]
-        dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
-            
-        # if rank == True:
-        #     dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
-        # else:
-        #     dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
+        collections = [df_junior_school if i == '全校' else df_junior_school[df_junior_school['學院']==i] for i in selected_options]
+
         
-        
+        if rank == True:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+        else:
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
+    
             
         ## 形成所有學系'項目'欄位的所有值
         # desired_order  = list(set([item for df in dataframes for item in df['項目'].tolist()])) 
@@ -387,9 +470,8 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         dataframes = [adjust_df(df, desired_order) for df in dataframes]        
         combined_df = pd.concat(dataframes, keys=selected_options)
         # combined_df = pd.concat(dataframes, keys=['全校'])
-    
-        
-        
+
+            
     # 获取level 0索引的唯一值并保持原始顺序
     unique_level0 = combined_df.index.get_level_values(0).unique()
 
@@ -402,7 +484,8 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
     # #### 设置条形的宽度
     # bar_width = 0.2
     #### 设置y轴的位置
-    r = np.arange(len(dataframes[0]))  ## len(result_df_理學_rr)=6, 因為result_df_理學_rr 有 6個 row: 非常滿意, 滿意, 普通, 不滿意, 非常不滿意
+    # r = np.arange(len(dataframes[0]))  ## len(result_df_理學_rr)=6, 因為result_df_理學_rr 有 6個 row: 非常滿意, 滿意, 普通, 不滿意, 非常不滿意
+    r = np.arange(len(desired_order))
     # #### 设置字体大小
     # title_fontsize = 15
     # xlabel_fontsize = 14
@@ -411,8 +494,11 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
     # yticklabel_fontsize = 14
     # annotation_fontsize = 8
     # legend_fontsize = 14
+    
+
     #### 绘制条形
     fig, ax = plt.subplots(figsize=(width3, heigh3))
+    # if 系_院_校 == '0' or '1':
     # for i, (college_name, df) in enumerate(combined_df.groupby(level=0)):
     for i, college_name in enumerate(unique_level0):            
         df = combined_df.loc[college_name]
@@ -421,11 +507,29 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         # 生成当前分组的y轴位置
         index = np.arange(num_bars) + i * bar_width
         # index = r + i * bar_width
+        # if 系_院_校 == '0' or '1':
         rects = ax.barh(index, df['比例'], height=bar_width, label=college_name)
+    # if 系_院_校 == '2':
+    # #     index = np.arange(len(desired_order))
+    # #     rects = ax.barh(index, dataframes[0]['比例'], height=bar_width, label='全校')
+    #     for i, college_name in enumerate(unique_level0):            
+    #         df = combined_df.loc[college_name]
+    #         # 计算当前分组的条形数量
+    #         num_bars = len(df)
+    #         # 生成当前分组的y轴位置
+    #         index = np.arange(num_bars) + i * bar_width
+    #         # index = r + i * bar_width
+    #         # if 系_院_校 == '0' or '1':
+    #         # rects = ax.barh(index, df['比例'], height=bar_width, label='全校')
+    #         # if i==0:
+    #         rects = ax.barh(index, df['比例'], height=bar_width, label=college_name)
+    
 
         # # 在每个条形上标示比例
         # for rect, ratio in zip(rects, df['比例']):
         #     ax.text(rect.get_x() + rect.get_width() / 2.0, rect.get_height(), f'{ratio:.1%}', ha='center', va='bottom',fontsize=annotation_fontsize)
+    
+    # if 系_院_校 == '0' or '1':
     ### 添加图例
     if fontsize_adjust==0:
         ax.legend()
@@ -448,9 +552,11 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
     ### 设置x,y轴刻度标签
     ax.set_yticks(r + bar_width*(len(dataframes) / 2))  # 调整位置以使标签居中对齐到每个条形
     if fontsize_adjust==0:
+        # ax.set_yticklabels(dataframes[0]['項目'].values) 
         ax.set_yticklabels(desired_order)
         ax.tick_params(axis='x')
     if fontsize_adjust==1:
+        # ax.set_yticklabels(dataframes[0]['項目'].values, fontsize=yticklabel_fontsize)
         ax.set_yticklabels(desired_order, fontsize=yticklabel_fontsize)
         ## 设置x轴刻度的字体大小
         ax.tick_params(axis='x', labelsize=xticklabel_fontsize)
@@ -473,6 +579,7 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
     plt.tight_layout()
     # plt.show()
     ### 在Streamlit中显示
+    # if 系_院_校 == '0' or '1':
     st.pyplot(plt)
 
 
@@ -535,13 +642,14 @@ elif 系_院_校 == '1':
     # collections = [df_junior_original[df_junior_original['學院']==i] for i in selected_options]
     # dataframes = [Frequency_Distribution(df, 7) for df in collections]
     # combined_df = pd.concat(dataframes, keys=selected_options)
+    df_junior_faculty = df_junior   ## 沒有用途, 只是為了不要讓 Draw() 中的參數 'df_junior_faculty' 缺漏
 elif 系_院_校 == '2':
     choice = '全校'
     # choice = st.selectbox('選擇:全校', university_list, index=0)
     # if choice !='全校':
-    #     df_admission = df_admission_original[df_admission_original['學院'].str.contains(choice, regex=True)]
+    #     df_junior = df_junior_original[df_junior_original['學院'].str.contains(choice, regex=True)]
     # if choice !='全校':
-    #     df_admission = df_admission_original
+    #     df_junior = df_junior_original
     
     df_junior = df_junior_original  ## 
     df_junior_faculty = df_junior  ## 沒有用途, 只是為了不要讓 Draw() 中的參數 'df_junior_faculty' 缺漏
@@ -907,8 +1015,7 @@ with st.expander("1-2.身分別:"):
 
     # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
     # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df, selected_options)
-    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
-    
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=pd.DataFrame(), selected_options=[], dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name='', rank=False, rank_number=5, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)
 st.markdown("##")  ## 更大的间隔 
     
     
@@ -958,22 +1065,42 @@ with st.expander("2-1.您三年級就學期間是否曾工讀:"):
 
     # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
     # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df, selected_options)
-    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
-    
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=pd.DataFrame(), selected_options=[], dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name='', rank=False, rank_number=5, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
 st.markdown("##")  ## 更大的间隔
 
 
 
 ###### 2-2.您三年級「上學期」平均每周工讀時數？
 with st.expander("2-2.三年級「上學期」平均每周工讀時數(不列計沒有工讀):"):
-    # df_junior.iloc[:,10] ## 
+    # df_junior.iloc[:,10] ##   df_junior.iloc[:,9].unique() ## array(['是', '否'], dtype=object)
     column_index = 10
     item_name = "三年級「上學期」平均每周工讀時數(不列計沒有工讀)"
     column_title.append(df_junior.columns[column_index][0:])
+    
+
+
+
+    ##### 加條件: 2-1 回答 '是' 者, 才能進行此題2-2. 使用布林索引過濾掉 第9行中包含 '否' 的 rows, 因為大三完全沒有工讀的不列入考慮
+    if 系_院_校 == '0':
+        df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
+        df_junior_faculty_restrict = df_junior_faculty[~df_junior_faculty.iloc[:, 9].str.contains('否')]
+        df_junior_school_restrict = df_junior_original[~df_junior_original.iloc[:, 9].str.contains('否')]
+        
+    if 系_院_校 == '1':
+        df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_original[~df_junior_original.iloc[:, 9].str.contains('否')]
+    if 系_院_校 == '2':
+        df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_restrict
+
+
 
 
     ##### 產出 result_df
-    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
+    result_df = Frequency_Distribution(df_junior_filtered, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
 
     ##### 存到 list 'df_streamlit'
     df_streamlit.append(result_df)  
@@ -999,6 +1126,6 @@ with st.expander("2-2.三年級「上學期」平均每周工讀時數(不列計
 
     # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
     # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df, selected_options)
-    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
-    
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=pd.DataFrame(), selected_options=[], dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name='', rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order)    
 st.markdown("##")  ## 更大的间隔  
