@@ -26,7 +26,7 @@ def load_data(path):
 
 ###### 計算次數分配並形成 包含'項目', '人數', '比例' 欄位的 dataframe 'result_df'
 @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
-def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1):
+def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
     ##### 将字符串按split_symbol分割并展平
     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
     #### split_values資料前處理
@@ -185,6 +185,7 @@ combined_df = pd.concat(dataframes, keys=selected_options)
 ####### 定義相關函數 (Part 2): 因為函數 'Draw' 的定義需要使用 'dataframes','combined_df' 來進行相關計算, 因此要放在以上 '預先設定' 之後才會有 'dataframes', 'combined_df' 的值
 ###### 畫圖形(單一學系或學院, 比較圖形)
 @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
+## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
 def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=pd.DataFrame(), selected_options=[], dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name='', rank=False, rank_number=5, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order):
     ##### 使用Streamlit畫單一圖
     if 系_院_校 == '0':
@@ -1100,7 +1101,7 @@ with st.expander("2-2.三年級「上學期」平均每周工讀時數(不列計
 
 
     ##### 產出 result_df
-    result_df = Frequency_Distribution(df_junior_filtered, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
+    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
 
     ##### 存到 list 'df_streamlit'
     df_streamlit.append(result_df)  
