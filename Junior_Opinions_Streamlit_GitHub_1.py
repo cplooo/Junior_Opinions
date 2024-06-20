@@ -32,9 +32,9 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     #### split_values資料前處理
     ### 去掉每一個字串前後的space
     split_values = split_values.str.strip()
-    ### 將以 '其他' 開頭的字串簡化為 '其他'
-    split_values_np = np.where(split_values.str.startswith('其他'), '其他', split_values)
-    split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
+    # ### 將以 '其他' 開頭的字串簡化為 '其他'
+    # split_values_np = np.where(split_values.str.startswith('其他'), '其他', split_values)
+    # split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
     
     ##### 计算不同子字符串的出现次数以及前處理
     value_counts = split_values.value_counts()
