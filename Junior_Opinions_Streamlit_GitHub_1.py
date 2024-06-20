@@ -1084,26 +1084,27 @@ with st.expander("2-2.三年級「上學期」平均每周工讀時數(不列計
 
 
 
-    ##### 加條件: 2-1 回答 '是' 者, 才能進行此題2-2. 使用布林索引過濾掉 第9行中包含 '否' 的 rows, 因為大三完全沒有工讀的不列入考慮
-    if 系_院_校 == '0':
-        df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
-        df_junior_faculty_restrict = df_junior_faculty[~df_junior_faculty.iloc[:, 9].str.contains('否')]
-        df_junior_school_restrict = df_junior_original[~df_junior_original.iloc[:, 9].str.contains('否')]
+    # ##### 加條件: 2-1 回答 '是' 者, 才能進行此題2-2. 使用布林索引過濾掉 第9行中包含 '否' 的 rows, 因為大三完全沒有工讀的不列入考慮
+    # if 系_院_校 == '0':
+    #     df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
+    #     df_junior_faculty_restrict = df_junior_faculty[~df_junior_faculty.iloc[:, 9].str.contains('否')]
+    #     df_junior_school_restrict = df_junior_original[~df_junior_original.iloc[:, 9].str.contains('否')]
         
-    if 系_院_校 == '1':
-        df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
-        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
-        df_junior_school_restrict = df_junior_original[~df_junior_original.iloc[:, 9].str.contains('否')]
-    if 系_院_校 == '2':
-        df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
-        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
-        df_junior_school_restrict = df_junior_restrict
+    # if 系_院_校 == '1':
+    #     df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
+    #     df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+    #     df_junior_school_restrict = df_junior_original[~df_junior_original.iloc[:, 9].str.contains('否')]
+    # if 系_院_校 == '2':
+    #     df_junior_restrict = df_junior[~df_junior.iloc[:, 9].str.contains('否')]
+    #     df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+    #     df_junior_school_restrict = df_junior_restrict
 
 
 
 
     ##### 產出 result_df
-    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
+    # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
 
     ##### 存到 list 'df_streamlit'
     df_streamlit.append(result_df)  
@@ -1130,5 +1131,6 @@ with st.expander("2-2.三年級「上學期」平均每周工讀時數(不列計
     # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
     # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df, selected_options)
     # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
-    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order)    
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order)
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_school, desired_order=desired_order)    
 st.markdown("##")  ## 更大的间隔  
