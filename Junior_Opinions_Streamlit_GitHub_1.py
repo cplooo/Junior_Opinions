@@ -25,86 +25,49 @@ def load_data(path):
     return df
 
 ###### 計算次數分配並形成 包含'項目', '人數', '比例' 欄位的 dataframe 'result_df'
-# # @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
-# # def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1,row_rank=False, row_rank_number=3): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
-# def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
-#     ##### 去掉df在指定的column 'column_index' 中包含 NaN 的 所有rows 並付值給df_restrict. df本身直接去掉會出現問題, 原因不明 ?
-#     # df.dropna(subset=[df.columns[column_index]], inplace=True)
-#     df_restrict = df.dropna(subset=[df.columns[column_index]])
+# @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
+# def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1,row_rank=False, row_rank_number=3): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
+def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
+    ##### 去掉df在指定的column 'column_index' 中包含 NaN 的 所有rows 並付值給df_restrict. df本身直接去掉會出現問題, 原因不明 ?
+    # df.dropna(subset=[df.columns[column_index]], inplace=True)
+    df_restrict = df.dropna(subset=[df.columns[column_index]])
 
-#     # if row_rank==True:
-#     #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
-#     #     # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
-#     #     df.iloc[:,column_index] = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number]))
+    # if row_rank==True:
+    #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
+    #     # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
+    #     df.iloc[:,column_index] = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number]))
 
-#     ##### 将字符串按split_symbol分割并展平以及前處理
-#     # if row_rank==True:
-#     #     # split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number])).explode()
-#     #     split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: x[:row_rank_number]).explode()
-#     # else:
-#     #     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
+    ##### 将字符串按split_symbol分割并展平以及前處理
+    # if row_rank==True:
+    #     # split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number])).explode()
+    #     split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: x[:row_rank_number]).explode()
+    # else:
+    #     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
 
-#     split_values = df_restrict.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
-#     # split_values = df.iloc[:,column_index].str.split(split_symbol).explode()
+    split_values = df_restrict.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
+    # split_values = df.iloc[:,column_index].str.split(split_symbol).explode()
 
-#     #### split_values資料前處理
-#     ### 去掉每一個字串前後的space
-#     split_values = split_values.str.strip()
-#     ### 去掉每一個字串最後的;符號
-#     split_values = split_values.str.rstrip(';')
-#     ### 將以 '其他' 開頭的字串簡化為 '其他'; 
-#     ## <注意> np.where 的邏輯中，NaN/NA 不被視為 False，而是默認處理為 True, 因此，np.where 將 NaN/NA 視為符合條件，並將其替換為 '其他'。
-#     ## 如果不希望 NaN/NA 值被替換為 '其他'，可以在使用 np.where 之前明確地將 NaN 值處理為 False，或者在替換時保留 NaN 值。
-#     split_values_np = np.where(split_values.str.startswith('其他').fillna(False), '其他', split_values)
-#     split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
-    
-#     ##### 计算不同子字符串的出现次数以及前處理
-#     value_counts = split_values.value_counts()
-#     #### 去掉 '沒有工讀' index的值:
-#     if dropped_string in value_counts.index:
-#         value_counts = value_counts.drop(dropped_string)
-#     #### 使用 dropna 方法去掉index或值為 NA 或 NaN 的項目
-#     value_counts = value_counts.dropna()
-        
-#     ##### 計算總數方式的選擇:
-#     if sum_choice == 0:    ## 以 "人次" 計算總數; 但如果是單選題, 此選項即為填答人數, 並且會去掉填答 "dropped_string" 以及有NA項目(index或值)的人數, 例如 dropped_string='沒有工讀'.
-#         total_sum = value_counts.sum()
-#     if sum_choice == 1:    ## 以 "填答人數" 計算總數
-#         total_sum = df.shape[0]
-        
-#     ##### 计算不同子字符串的比例
-#     # proportions = value_counts/value_counts.sum()
-#     proportions = value_counts/total_sum
-    
-#     ##### 轉化為 numpy array
-#     value_counts_numpy = value_counts.values
-#     proportions_numpy = proportions.values
-#     items_numpy = proportions.index.to_numpy()
-    
-#     ##### 创建一个新的DataFrame来显示结果
-#     result_df = pd.DataFrame({'項目':items_numpy, '人數': value_counts_numpy,'比例': proportions_numpy.round(4)})
-#     return result_df
-
-
-@st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
-def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1):
-    ##### 将字符串按逗号分割并展平
-    split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=','
     #### split_values資料前處理
     ### 去掉每一個字串前後的space
     split_values = split_values.str.strip()
-    ### 將以 '其他' 開頭的字串簡化為 '其他'
-    split_values_np = np.where(split_values.str.startswith('其他'), '其他', split_values)
+    ### 去掉每一個字串最後的;符號
+    split_values = split_values.str.rstrip(';')
+    ### 將以 '其他' 開頭的字串簡化為 '其他'; 
+    ## <注意> np.where 的邏輯中，NaN/NA 不被視為 False，而是默認處理為 True, 因此，np.where 將 NaN/NA 視為符合條件，並將其替換為 '其他'。
+    ## 如果不希望 NaN/NA 值被替換為 '其他'，可以在使用 np.where 之前明確地將 NaN 值處理為 False，或者在替換時保留 NaN 值。
+    split_values_np = np.where(split_values.str.startswith('其他').fillna(False), '其他', split_values)
     split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
     
-    ##### 计算不同子字符串的出现次数
+    ##### 计算不同子字符串的出现次数以及前處理
     value_counts = split_values.value_counts()
     #### 去掉 '沒有工讀' index的值:
     if dropped_string in value_counts.index:
         value_counts = value_counts.drop(dropped_string)
+    #### 使用 dropna 方法去掉index或值為 NA 或 NaN 的項目
+    value_counts = value_counts.dropna()
         
     ##### 計算總數方式的選擇:
-    if sum_choice == 0:    ## 以 "人次" 計算總數
+    if sum_choice == 0:    ## 以 "人次" 計算總數; 但如果是單選題, 此選項即為填答人數, 並且會去掉填答 "dropped_string" 以及有NA項目(index或值)的人數, 例如 dropped_string='沒有工讀'.
         total_sum = value_counts.sum()
     if sum_choice == 1:    ## 以 "填答人數" 計算總數
         total_sum = df.shape[0]
@@ -121,6 +84,43 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     ##### 创建一个新的DataFrame来显示结果
     result_df = pd.DataFrame({'項目':items_numpy, '人數': value_counts_numpy,'比例': proportions_numpy.round(4)})
     return result_df
+
+
+# @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
+# def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1):
+#     ##### 将字符串按逗号分割并展平
+#     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=','
+#     #### split_values資料前處理
+#     ### 去掉每一個字串前後的space
+#     split_values = split_values.str.strip()
+#     ### 將以 '其他' 開頭的字串簡化為 '其他'
+#     split_values_np = np.where(split_values.str.startswith('其他'), '其他', split_values)
+#     split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
+    
+#     ##### 计算不同子字符串的出现次数
+#     value_counts = split_values.value_counts()
+#     #### 去掉 '沒有工讀' index的值:
+#     if dropped_string in value_counts.index:
+#         value_counts = value_counts.drop(dropped_string)
+        
+#     ##### 計算總數方式的選擇:
+#     if sum_choice == 0:    ## 以 "人次" 計算總數
+#         total_sum = value_counts.sum()
+#     if sum_choice == 1:    ## 以 "填答人數" 計算總數
+#         total_sum = df.shape[0]
+        
+#     ##### 计算不同子字符串的比例
+#     # proportions = value_counts/value_counts.sum()
+#     proportions = value_counts/total_sum
+    
+#     ##### 轉化為 numpy array
+#     value_counts_numpy = value_counts.values
+#     proportions_numpy = proportions.values
+#     items_numpy = proportions.index.to_numpy()
+    
+#     ##### 创建一个新的DataFrame来显示结果
+#     result_df = pd.DataFrame({'項目':items_numpy, '人數': value_counts_numpy,'比例': proportions_numpy.round(4)})
+#     return result_df
 
 
 
