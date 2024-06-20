@@ -1370,7 +1370,8 @@ with st.expander("2-6-1.工讀的原因:第一順位(不列計沒有工讀):"):
 
     ##### 產出 result_df
     # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
-    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+    # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
 
     ##### 存到 list 'df_streamlit'
     df_streamlit.append(result_df)  
@@ -1445,7 +1446,8 @@ with st.expander("2-6-2.工讀的原因:第二順位(不列計沒有工讀):"):
 
     ##### 產出 result_df
     # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
-    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+    # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
 
     ##### 存到 list 'df_streamlit'
     df_streamlit.append(result_df)  
@@ -1520,7 +1522,8 @@ with st.expander("2-6-3.工讀的原因:第三順位(不列計沒有工讀):"):
 
     ##### 產出 result_df
     # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
-    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+    # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
 
     ##### 存到 list 'df_streamlit'
     df_streamlit.append(result_df)  
