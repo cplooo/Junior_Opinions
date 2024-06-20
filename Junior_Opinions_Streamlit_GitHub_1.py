@@ -111,7 +111,7 @@ collections = [df_freshman_original[df_freshman_original['科系']==i] for i in 
 # collections = [df_freshman, df_freshman_faculty, df_freshman_original]
 # len(collections) ## 2
 # type(collections[0])   ## pandas.core.frame.DataFrame
-column_index = 7
+column_index = 16
 dataframes = [Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1) for df in collections]  ## 22: "您工讀次要的原因為何:"
 # len(dataframes)  ## 2
 # len(dataframes[1]) ## 6,5
