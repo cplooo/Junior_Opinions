@@ -30,7 +30,7 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
 
     ##### 在原 DataFrame 上直接去掉在指定的column 'column_index' 中包含 NaN 的 所有rows
     # df.dropna(subset=[df.columns[column_index]], inplace=True)
-    df_restrict = df.dropna(subset=[df.columns[column_index]], inplace=True)
+    df_restrict = df.dropna(subset=[df.columns[column_index]])
 
     # if row_rank==True:
     #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
