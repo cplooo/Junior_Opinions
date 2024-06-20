@@ -1954,4 +1954,50 @@ with st.expander("3-7.上述參與過的活動中，哪些經驗對未來工作�
 st.markdown("##")  ## 更大的间隔
 
 
+
+st.markdown("""
+<style>
+.bold-small-font {
+    font-size:18px !important;
+    font-weight:bold !important;
+}
+</style>
+<p class="bold-small-font">學習情況與能力培養</p>
+""", unsafe_allow_html=True)
+
+
+###### 4-1.您在專業課程學習上的投入/認真程度？ (依多數課程情況回答)
+with st.expander("4-1.在專業課程學習上的投入/認真程度:"):
+    # df_junior.iloc[:,25] ## 
+    column_index = 25
+    item_name = "在專業課程學習上的投入/認真程度"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
   
