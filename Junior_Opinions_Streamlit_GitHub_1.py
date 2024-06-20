@@ -223,9 +223,11 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
     if 系_院_校 == '0':
         collections = [df_junior, df_junior_faculty, df_junior_school]
         if rank == True:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
         else:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
         ## 形成所有學系'項目'欄位的所有值
         # desired_order  = list(set([item for df in dataframes for item in df['項目'].tolist()]))
         # desired_order  = list(set([item for item in dataframes[0]['項目'].tolist()])) 
@@ -451,9 +453,11 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         collections = [df_junior_school[df_junior_school['科系']==i] for i in selected_options]
         
         if rank == True:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
         else:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
 
 
         # #### 只看第一個選擇學系的項目(已經是按照次數高至低的項目順序排列), 並且反轉次序使得表與圖的項目次序一致
@@ -471,9 +475,11 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         collections = [df_junior_school[df_junior_school['學院']==i] for i in selected_options]
         
         if rank == True:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
         else:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
 
         
         ## 形成所有學系'項目'欄位的所有值
@@ -490,9 +496,11 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
 
         
         if rank == True:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice).head(rank_number) for df in collections]  ## 'dataframes' list 中的各dataframe已經是按照次數高至低的項目順序排列
         else:
-            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]
+            # dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice, row_rank, row_rank_number) for df in collections]
+            dataframes = [Frequency_Distribution(df, column_index, split_symbol, dropped_string, sum_choice) for df in collections]
     
             
         ## 形成所有學系'項目'欄位的所有值
