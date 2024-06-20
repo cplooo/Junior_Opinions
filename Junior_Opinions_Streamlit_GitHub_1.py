@@ -28,8 +28,8 @@ def load_data(path):
 # @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
 def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1,row_rank=False, row_rank_number=3): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
 
-    # ##### 在原 DataFrame 上直接去掉在指定的column 'column_index' 中包含 NaN 的 所有rows
-    # df.dropna(subset=[df.columns[column_index]], inplace=True)
+    ##### 在原 DataFrame 上直接去掉在指定的column 'column_index' 中包含 NaN 的 所有rows
+    df.dropna(subset=[df.columns[column_index]], inplace=True)
 
     # if row_rank==True:
     #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
@@ -1308,7 +1308,7 @@ with st.expander("2-6-1.工讀的原因(不列計沒有工讀):"):
 
     
     ##### 產出 result_df: 加條件: 
-    ranking_number = 2
+    ranking_number = 1
     
     # if 系_院_校 == '0':
     #     df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
