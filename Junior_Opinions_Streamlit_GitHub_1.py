@@ -1376,13 +1376,13 @@ with st.expander("2-6-1.工讀的原因:第一順位(不列計沒有工讀):"):
     #### 畫比較圖時, 比較單位之選擇:
     if 系_院_校 == '0':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d1')  ## # selected_options = ['化科系','企管系']
     if 系_院_校 == '1':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f1')
     if 系_院_校 == '2':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university1')
         
 
     # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
@@ -1450,13 +1450,13 @@ with st.expander("2-6-2.工讀的原因:第二順位(不列計沒有工讀):"):
     #### 畫比較圖時, 比較單位之選擇:
     if 系_院_校 == '0':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d2')  ## # selected_options = ['化科系','企管系']
     if 系_院_校 == '1':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f2')
     if 系_院_校 == '2':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university2')
         
 
     # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
@@ -1524,13 +1524,13 @@ with st.expander("2-6-3.工讀的原因:第三順位(不列計沒有工讀):"):
     #### 畫比較圖時, 比較單位之選擇:
     if 系_院_校 == '0':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d3')  ## # selected_options = ['化科系','企管系']
     if 系_院_校 == '1':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f3')
     if 系_院_校 == '2':
         ## 使用multiselect组件让用户进行多重选择
-        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university3')
         
 
     # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
