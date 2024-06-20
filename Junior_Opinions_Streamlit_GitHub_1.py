@@ -30,7 +30,7 @@ def load_data(path):
 def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
     ##### 去掉df在指定的column 'column_index' 中包含 NaN 的 所有rows 並付值給df_restrict. df本身直接去掉會出現問題, 原因不明 ?
     # df.dropna(subset=[df.columns[column_index]], inplace=True)
-    df_restrict = df.dropna(subset=[df.columns[column_index]])
+    # df_restrict = df.dropna(subset=[df.columns[column_index]])
 
     # if row_rank==True:
     #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
@@ -44,8 +44,8 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     # else:
     #     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
 
-    split_values = df_restrict.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
-    
+    # split_values = df_restrict.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
+    split_values = df.iloc[:,column_index].str.split(split_symbol).explode()
 
     #### split_values資料前處理
     ### 去掉每一個字串前後的space
@@ -133,9 +133,9 @@ df_ID = load_data('df_ID.pkl')
 # df_junior_original.iloc[:,14] = df_junior_original.iloc[:,14].str.split(';').apply(lambda x: ';'.join(x[:1]))
 # choice='大傳系' ##'化科系'
 # df_junior = df_junior_original[df_junior_original['科系']==choice]
-# df_junior.dropna(subset=[df_junior.columns[14]], inplace=True)
+# df_junior.dropna(subset=[df_junior.columns[16]], inplace=True)
 # # df_junior.iloc[:,14] = df_junior.iloc[:,14].str.split(';').apply(lambda x: ';'.join(x[:1]))
-# df_junior.iloc[:,14].str.split(';').apply(lambda x: ';'.join(x[:2]))
+# df_junior.iloc[:,16].str.split(';').apply(lambda x: ';'.join(x[:2]))
 
 
 ####### 預先設定
