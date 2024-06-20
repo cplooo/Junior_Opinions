@@ -28,7 +28,7 @@ def load_data(path):
 @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
 def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1,row_rank=False, row_rank_number=3): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
     ##### 使用 dropna 方法去掉包含 NaN 的所有 rows
-    # df = df.dropna()  ## 預設是去掉有NA的row,如果是行,要設定axis=1.
+    df = df.dropna()  ## 預設是去掉有NA的row,如果是行,要設定axis=1.
     # if row_rank==True:
     #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
     #     # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
