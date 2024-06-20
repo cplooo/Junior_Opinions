@@ -753,7 +753,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">以下調查與計算母體為大三填答同學 2189人</p>
+<p class="bold-small-font">以下調查與計算母體為大三填答同學 2189人;應填答人數2491</p>
 """, unsafe_allow_html=True)
 
 st.markdown("##")  ## 更大的间隔
