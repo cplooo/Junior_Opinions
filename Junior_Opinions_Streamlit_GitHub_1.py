@@ -1362,50 +1362,50 @@ with st.expander("2-6-1.工讀的原因:第一順位(不列計沒有工讀):"):
 
     
     ##### 產出 result_df: 加條件: 
-    ranking_number = 1
+    ranking_number = 4
     
-    # if 系_院_校 == '0':
-    #     df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
-    #     df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
-    #     df_junior_faculty_restrict = df_junior_faculty.dropna(subset=[df_junior_faculty.columns[column_index]])
-    #     df_junior_faculty_restrict.iloc[:,column_index] = df_junior_faculty_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
-    #     df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
-    #     df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
-        
-        
-    # if 系_院_校 == '1':
-    #     df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
-    #     df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
-    #     df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
-    #     df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
-    #     df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
-    # if 系_院_校 == '2':
-    #     df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
-    #     df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
-    #     df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
-    #     df_junior_school_restrict = df_junior_restrict
-        
-        
     if 系_院_校 == '0':
         df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
-        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
         df_junior_faculty_restrict = df_junior_faculty.dropna(subset=[df_junior_faculty.columns[column_index]])
-        df_junior_faculty_restrict.iloc[:,column_index] = df_junior_faculty_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_faculty_restrict.iloc[:,column_index] = df_junior_faculty_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
         df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
-        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
         
         
     if 系_院_校 == '1':
         df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
-        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
         df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
         df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
-        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
     if 系_院_校 == '2':
         df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
-        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:ranking_number]))
         df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
         df_junior_school_restrict = df_junior_restrict
+        
+        
+    # if 系_院_校 == '0':
+    #     df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+    #     df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    #     df_junior_faculty_restrict = df_junior_faculty.dropna(subset=[df_junior_faculty.columns[column_index]])
+    #     df_junior_faculty_restrict.iloc[:,column_index] = df_junior_faculty_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    #     df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
+    #     df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        
+        
+    # if 系_院_校 == '1':
+    #     df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+    #     df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    #     df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+    #     df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
+    #     df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    # if 系_院_校 == '2':
+    #     df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+    #     df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    #     df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+    #     df_junior_school_restrict = df_junior_restrict
 
 
 
