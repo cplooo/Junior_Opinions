@@ -31,13 +31,17 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     ##### 在原 DataFrame 上直接去掉在指定的column 'column_index' 中包含 NaN 的 所有rows
     df.dropna(subset=[df.columns[column_index]], inplace=True)
 
-    if row_rank==True:
-        ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
-        # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
-        df.iloc[:,column_index] = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number]))
+    # if row_rank==True:
+    #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
+    #     # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
+    #     df.iloc[:,column_index] = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number]))
 
     ##### 将字符串按split_symbol分割并展平以及前處理
-    split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
+    if row_rank==True:
+        split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number])).explode()
+    else:
+        split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
+
     #### split_values資料前處理
     ### 去掉每一個字串前後的space
     split_values = split_values.str.strip()
@@ -122,6 +126,10 @@ df_ID = load_data('df_ID.pkl')
 
 # df_junior_original.dropna(subset=[df_junior_original.columns[14]], inplace=True)
 # df_junior_original.iloc[:,14] = df_junior_original.iloc[:,14].str.split(';').apply(lambda x: ';'.join(x[:1]))
+# choice='大傳系' ##'化科系'
+# df_junior = df_junior_original[df_junior_original['科系']==choice]
+# df_junior.dropna(subset=[df_junior.columns[14]], inplace=True)
+# df_junior.iloc[:,14] = df_junior.iloc[:,14].str.split(';').apply(lambda x: ';'.join(x[:1]))
 
 
 ####### 預先設定
