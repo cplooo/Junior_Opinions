@@ -2934,6 +2934,310 @@ st.markdown("##")  ## 更大的间隔
 
 
 
+###### 7-2.生涯就業輔導: 對畢業後的生涯發展有明確方向與規劃
+with st.expander("7-2.對畢業後的生涯發展有明確方向與規劃"):
+    # df_junior.iloc[:,54] ## 
+    column_index = 54
+    item_name = "對畢業後的生涯發展有明確方向與規劃"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+###### 7-3.生涯就業輔導: 瞭解系上學長姐畢業後主要的就業領域與方向
+with st.expander("7-3.瞭解系上學長姐畢業後主要的就業領域與方向"):
+    # df_junior.iloc[:,55] ## 
+    column_index = 55
+    item_name = "瞭解系上學長姐畢業後主要的就業領域與方向"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+###### 7-4.生涯就業輔導: 期待畢業學長姊返校與在校同學分享經驗
+with st.expander("7-4.期待畢業學長姊返校與在校同學分享經驗"):
+    # df_junior.iloc[:,56] ## 
+    column_index = 56
+    item_name = "期待畢業學長姊返校與在校同學分享經驗"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+###### 7-5.生涯就業輔導: 了解目前國內外產業發展趨勢及就業市場之形勢
+with st.expander("7-5.了解目前國內外產業發展趨勢及就業市場之形勢"):
+    # df_junior.iloc[:,57] ## 
+    column_index = 57
+    item_name = "了解目前國內外產業發展趨勢及就業市場之形勢"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+st.markdown("""
+<style>
+.bold-small-font {
+    font-size:18px !important;
+    font-weight:bold !important;
+}
+</style>
+<p class="bold-small-font">就學期間</p>
+""", unsafe_allow_html=True)
+
+
+###### 8-1.就學期間:有沒有老師關心您
+with st.expander("8-1.就學期間:有沒有老師關心您"):
+    # df_junior.iloc[:,59] ## 
+    column_index = 59
+    item_name = "就學期間:有沒有老師關心您"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+###### 8-2.就學期間:有沒有老師能啟發您, 給您夢想跟動力
+with st.expander("8-2.就學期間:有沒有老師能啟發您, 給您夢想跟動力"):
+    # df_junior.iloc[:,60] ## 
+    column_index = 60
+    item_name = "就學期間:有沒有老師能啟發您, 給您夢想跟動力"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+###### 8-3.就學期間:有沒有老師鼓勵您
+with st.expander("8-3.就學期間:有沒有老師鼓勵您"):
+    # df_junior.iloc[:,61] ## 
+    column_index = 61
+    item_name = "就學期間:有沒有老師鼓勵您"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+###### 8-4.就學期間:有沒有碰到專心認真上課的老師
+with st.expander("8-4.就學期間:有沒有碰到專心認真上課的老師"):
+    # df_junior.iloc[:,62] ## 
+    column_index = 62
+    item_name = "就學期間:有沒有碰到專心認真上課的老師"
+    column_title.append(df_junior.columns[column_index][0:])
+
+
+    ##### 產出 result_df
+    result_df = Frequency_Distribution(df_junior, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=True, rank_number=10, df_junior=df_junior, df_junior_faculty=df_junior_faculty, df_junior_school=df_junior_original, desired_order=desired_order)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+
+
+
+
+
 
 
 
