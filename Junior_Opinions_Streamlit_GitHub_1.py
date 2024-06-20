@@ -83,11 +83,30 @@ def adjust_df(df, order):
 
 
 #######  读取Pickle文件
-df_freshman_original = load_data('df_junior_original.pkl')
-# df_junior_original = load_data(r'C:\Users\user\Dropbox\系務\校務研究IR\大一新生學習適應調查分析\112\GitHub上傳\df_junior_original.pkl')
+# df_freshman_original = load_data('df_junior_original.pkl')
+# # df_junior_original = load_data(r'C:\Users\user\Dropbox\系務\校務研究IR\大一新生學習適應調查分析\112\GitHub上傳\df_junior_original.pkl')
+# ###### 使用rename方法更改column名称: '學系' -> '科系'
+# df_freshman_original = df_freshman_original.rename(columns={'學系': '科系'})
+# df_ID = load_data('df_ID.pkl')
+
+
+df_freshman_original = load_data('df_freshman_original.pkl')
+# df_freshman_original = load_data(r'C:\Users\user\Dropbox\系務\校務研究IR\大一新生學習適應調查分析\112\GitHub上傳\df_freshman_original.pkl')
+
 ###### 使用rename方法更改column名称: '學系' -> '科系'
 df_freshman_original = df_freshman_original.rename(columns={'學系': '科系'})
-df_ID = load_data('df_ID.pkl')
+###### 更改院的名稱: 理學->理學院, 資訊->資訊學院, 管理->管理學院, 人社->人文暨社會科學院, 國際->國際學院, 外語->外語學院
+##### 定义替换规则
+replace_rules = {
+    '理學': '理學院',
+    '資訊': '資訊學院',
+    '管理': '管理學院',
+    '人社': '人文暨社會科學院',
+    '國際': '國際學院',
+    '外語': '外語學院'
+}
+##### 应用替换规则
+df_freshman_original['學院'] = df_freshman_original['學院'].replace(replace_rules)
 
 
 
@@ -111,7 +130,7 @@ collections = [df_freshman_original[df_freshman_original['科系']==i] for i in 
 # collections = [df_freshman, df_freshman_faculty, df_freshman_original]
 # len(collections) ## 2
 # type(collections[0])   ## pandas.core.frame.DataFrame
-column_index = 16
+column_index = 7
 dataframes = [Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1) for df in collections]  ## 22: "您工讀次要的原因為何:"
 # len(dataframes)  ## 2
 # len(dataframes[1]) ## 6,5
@@ -540,7 +559,7 @@ column_title = []
 ###### Q3 經濟不利背景（可複選）
 with st.expander("Q3. 經濟不利背景（可複選）:"):
     # df_freshman.iloc[:,16] ## 3經濟不利背景（可複選）
-    column_index = 16
+    column_index = 3
     item_name = "經濟不利背景（可複選）"
     column_title.append(df_freshman.columns[column_index][1:])
 
