@@ -30,7 +30,7 @@ def load_data(path):
 def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
     ##### 去掉df在指定的column 'column_index' 中包含 NaN 的 所有rows 並付值給df_restrict. df本身直接去掉會出現問題, 原因不明 ?
     # df.dropna(subset=[df.columns[column_index]], inplace=True)
-    # df_restrict = df.dropna(subset=[df.columns[column_index]])
+    df_restrict = df.dropna(subset=[df.columns[column_index]])
 
     # if row_rank==True:
     #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
@@ -44,12 +44,14 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     # else:
     #     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
 
-    # split_values = df_restrict.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
-    split_values = df.iloc[:,column_index].str.split(split_symbol).explode()
+    split_values = df_restrict.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
+    # split_values = df.iloc[:,column_index].str.split(split_symbol).explode()
 
     #### split_values資料前處理
     ### 去掉每一個字串前後的space
     split_values = split_values.str.strip()
+    ### 去掉每一個字串最後的;符號
+    split_values = split_values.str.rstrip(';')
     ### 將以 '其他' 開頭的字串簡化為 '其他'; 
     ## <注意> np.where 的邏輯中，NaN/NA 不被視為 False，而是默認處理為 True, 因此，np.where 將 NaN/NA 視為符合條件，並將其替換為 '其他'。
     ## 如果不希望 NaN/NA 值被替換為 '其他'，可以在使用 np.where 之前明確地將 NaN 值處理為 False，或者在替換時保留 NaN 值。
