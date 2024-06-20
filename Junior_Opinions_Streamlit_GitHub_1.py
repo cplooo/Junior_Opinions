@@ -27,7 +27,7 @@ def load_data(path):
 ###### 計算次數分配並形成 包含'項目', '人數', '比例' 欄位的 dataframe 'result_df'
 @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
 def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
-    ##### 将字符串按split_symbol分割并展平
+    ##### 将字符串按split_symbol分割并展平以及前處理
     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
     #### split_values資料前處理
     ### 去掉每一個字串前後的space
@@ -36,14 +36,16 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     split_values_np = np.where(split_values.str.startswith('其他'), '其他', split_values)
     split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
     
-    ##### 计算不同子字符串的出现次数
+    ##### 计算不同子字符串的出现次数以及前處理
     value_counts = split_values.value_counts()
     #### 去掉 '沒有工讀' index的值:
     if dropped_string in value_counts.index:
         value_counts = value_counts.drop(dropped_string)
+    #### 使用 dropna 方法去掉index或值為 NA 或 NaN 的項目
+    value_counts = value_counts.dropna()
         
     ##### 計算總數方式的選擇:
-    if sum_choice == 0:    ## 以 "人次" 計算總數; 但如果是單選題, 此選項即為填答人數, 並且會去掉填答 "dropped_string" 的人數, 例如 dropped_string='沒有工讀'.
+    if sum_choice == 0:    ## 以 "人次" 計算總數; 但如果是單選題, 此選項即為填答人數, 並且會去掉填答 "dropped_string" 以及有NA項目(index或值)的人數, 例如 dropped_string='沒有工讀'.
         total_sum = value_counts.sum()
     if sum_choice == 1:    ## 以 "填答人數" 計算總數
         total_sum = df.shape[0]
