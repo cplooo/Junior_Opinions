@@ -29,7 +29,8 @@ def load_data(path):
 def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1,row_rank=False, row_rank_number=3): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
 
     ##### 在原 DataFrame 上直接去掉在指定的column 'column_index' 中包含 NaN 的 所有rows
-    df.dropna(subset=[df.columns[column_index]], inplace=True)
+    # df.dropna(subset=[df.columns[column_index]], inplace=True)
+    df_restrict = df.dropna(subset=[df.columns[column_index]], inplace=True)
 
     # if row_rank==True:
     #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
@@ -43,7 +44,7 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     # else:
     #     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
 
-    split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
+    split_values = df_restrict.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';' 
     
 
     #### split_values資料前處理
