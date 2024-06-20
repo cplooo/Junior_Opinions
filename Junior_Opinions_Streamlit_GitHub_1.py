@@ -1619,20 +1619,20 @@ with st.expander("3-1.哪些經驗對未來工作會有所幫助(複選):"):
     column_title.append(df_junior.columns[column_index][0:])
 
 
-        if 系_院_校 == '0':
-            df_junior_restrict = df_junior
-            df_junior_faculty_restrict = df_junior_faculty
-            df_junior_school_restrict = df_junior_original
-            
-        if 系_院_校 == '1':
-            df_junior_restrict = df_junior
-            df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
-            df_junior_school_restrict = df_junior_original
-            
-        if 系_院_校 == '2':
-            df_junior_restrict = df_junior
-            df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
-            df_junior_school_restrict = df_junior_restrict
+    if 系_院_校 == '0':
+        df_junior_restrict = df_junior
+        df_junior_faculty_restrict = df_junior_faculty
+        df_junior_school_restrict = df_junior_original
+        
+    if 系_院_校 == '1':
+        df_junior_restrict = df_junior
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_original
+        
+    if 系_院_校 == '2':
+        df_junior_restrict = df_junior
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_restrict
 
 
     ##### 產出 result_df
