@@ -2006,7 +2006,7 @@ st.markdown("##")  ## 更大的间隔
 with st.expander("4-2.對專業課程提供意見或建議:"):
     # df_junior.iloc[:,26] ## 
     column_index = 26
-    item_name = "對專業課程提供意見或建議"
+    item_name = "對專業課程提供意見或建議(部分呈現)"
     column_title.append(df_junior.columns[column_index][0:])
 
 
