@@ -31,10 +31,10 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     ##### 在原 DataFrame 上直接去掉在指定的column 'column_index' 中包含 NaN 的 所有rows
     df.dropna(subset=[df.columns[column_index]], inplace=True)
 
-    if row_rank==True:
-        ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
-        # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
-        df.iloc[:,column_index] = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number]))
+    # if row_rank==True:
+    #     ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
+    #     # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
+    #     df.iloc[:,column_index] = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number]))
 
     ##### 将字符串按split_symbol分割并展平以及前處理
     split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
