@@ -1296,11 +1296,11 @@ st.markdown("##")  ## 更大的间隔
 
 
 
-###### 2-6.您工讀的原因為何？(直接拖拉，依原因之優先順序排列，最主要原因放在最上方)
-with st.expander("2-6-1.工讀的原因(不列計沒有工讀):"):
+###### 2-6-1.您工讀的原因為何？(直接拖拉，依原因之優先順序排列，最主要原因放在最上方): 第一順位 
+with st.expander("2-6-1.工讀的原因:第一順位(不列計沒有工讀):"):
     # df_junior.iloc[:,14] ##   
     column_index = 14
-    item_name = "工讀的原因(不列計沒有工讀)"
+    item_name = "工讀的原因:第一順位(不列計沒有工讀)"
     column_title.append(df_junior.columns[column_index][0:])
     # ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
     # # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
@@ -1391,4 +1391,152 @@ with st.expander("2-6-1.工讀的原因(不列計沒有工讀):"):
     # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order)
     Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order, row_rank=True, row_rank_number=1)    
 st.markdown("##")  ## 更大的间隔 
+
+
+
+###### 2-6-2.您工讀的原因為何？(直接拖拉，依原因之優先順序排列，最主要原因放在最上方): 第二順位 
+with st.expander("2-6-2.工讀的原因:第二順位(不列計沒有工讀):"):
+    # df_junior.iloc[:,14] ##   
+    column_index = 14
+    item_name = "工讀的原因:第二順位(不列計沒有工讀)"
+    column_title.append(df_junior.columns[column_index][0:])
+    # ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
+    # # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
+    # df_junior.iloc[:,column_index] = df_junior.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:3]))
+
+
+    
+    ##### 產出 result_df: 加條件: 
+    ranking_number = 2
+        
+    if 系_院_校 == '0':
+        df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_faculty_restrict = df_junior_faculty.dropna(subset=[df_junior_faculty.columns[column_index]])
+        df_junior_faculty_restrict.iloc[:,column_index] = df_junior_faculty_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
+        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    if 系_院_校 == '1':
+        df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
+        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    if 系_院_校 == '2':
+        df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_restrict
+
+
+
+
+    
+
+    ##### 產出 result_df
+    # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
+    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+        
+
+    # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df, selected_options)
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order)
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order, row_rank=True, row_rank_number=1)    
+st.markdown("##")  ## 更大的间隔
+
+
+
+###### 2-6-3.您工讀的原因為何？(直接拖拉，依原因之優先順序排列，最主要原因放在最上方): 第三順位 
+with st.expander("2-6-3.工讀的原因:第三順位(不列計沒有工讀):"):
+    # df_junior.iloc[:,14] ##   
+    column_index = 14
+    item_name = "工讀的原因:第三順位(不列計沒有工讀)"
+    column_title.append(df_junior.columns[column_index][0:])
+    # ##### 使用 str.split 方法分割第14行的字串，以 ';' 為分隔符, 然後使用 apply 和 lambda 函數來提取前三個元素, 並再度以;分隔.
+    # # df_junior['col14'] = df_junior['col14'].str.split(';').apply(lambda x: ';'.join(x[:3]))
+    # df_junior.iloc[:,column_index] = df_junior.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[:3]))
+
+
+    
+    ##### 產出 result_df: 加條件: 
+    ranking_number = 3
+    
+    if 系_院_校 == '0':
+        df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_faculty_restrict = df_junior_faculty.dropna(subset=[df_junior_faculty.columns[column_index]])
+        df_junior_faculty_restrict.iloc[:,column_index] = df_junior_faculty_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
+        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    if 系_院_校 == '1':
+        df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_original.dropna(subset=[df_junior_original.columns[column_index]])
+        df_junior_school_restrict.iloc[:,column_index] = df_junior_school_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+    if 系_院_校 == '2':
+        df_junior_restrict = df_junior.dropna(subset=[df_junior.columns[column_index]])
+        df_junior_restrict.iloc[:,column_index] = df_junior_restrict.iloc[:,column_index].str.split(';').apply(lambda x: ';'.join(x[ranking_number-1:ranking_number]))
+        df_junior_faculty_restrict = df_junior_restrict  ## 沒有作用
+        df_junior_school_restrict = df_junior_restrict
+
+
+
+
+    
+
+    ##### 產出 result_df
+    # result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0)
+    result_df = Frequency_Distribution(df_junior_restrict, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1 , row_rank=True, row_rank_number=3)
+
+    ##### 存到 list 'df_streamlit'
+    df_streamlit.append(result_df)  
+
+    ##### 使用Streamlit展示DataFrame "result_df"，但不显示索引
+    # st.write(choice)
+    st.write(f"<h6>{choice}</h6>", unsafe_allow_html=True)
+    st.write(result_df.to_html(index=False), unsafe_allow_html=True)
+    st.markdown("##")  ## 更大的间隔
+
+    ##### 使用Streamlit畫單一圖 & 比較圖
+    #### 畫比較圖時, 比較單位之選擇:
+    if 系_院_校 == '0':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學系：', df_junior_original['科系'].unique(), default=[choice,'企管系'],key=str(column_index)+'d')  ## # selected_options = ['化科系','企管系']
+    if 系_院_校 == '1':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('選擇比較學院：', df_junior_original['學院'].unique(), default=[choice,'資訊學院'],key=str(column_index)+'f')
+    if 系_院_校 == '2':
+        ## 使用multiselect组件让用户进行多重选择
+        selected_options = st.multiselect('比較選擇: 全校 or 各院：', university_faculties_list, default=['全校','理學院'],key=str(column_index)+'university')
+        
+
+    # Draw(系_院_校, column_index, ';', '沒有工讀', 1, result_df, selected_options, dataframes, combined_df, bar_width = 0.15)
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df, selected_options)
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14,bar_width = 0.2, fontsize_adjust=0)
+    # Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=0, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order)
+    Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1, result_df=result_df, selected_options=selected_options, dataframes=dataframes, combined_df=combined_df, width1=10,heigh1=6,width2=11,heigh2=8,width3=10,heigh3=6,title_fontsize=15,xlabel_fontsize = 14,ylabel_fontsize = 14,legend_fontsize = 14,xticklabel_fontsize = 14, yticklabel_fontsize = 14, annotation_fontsize = 14, bar_width = 0.2, fontsize_adjust=0, item_name=item_name, rank=False, rank_number=5, df_junior=df_junior_restrict, df_junior_faculty=df_junior_faculty_restrict, df_junior_school=df_junior_school_restrict, desired_order=desired_order, row_rank=True, row_rank_number=1)    
+st.markdown("##")  ## 更大的间隔  
   
