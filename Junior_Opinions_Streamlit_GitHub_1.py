@@ -28,7 +28,7 @@ def load_data(path):
 # @st.cache_data(ttl=3600, show_spinner="正在處理資料...")  ## Add the caching decorator
 def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='沒有工讀', sum_choice=1,row_rank=False, row_rank_number=3): ## 當有去掉dropped_string & 是單選題時, sum_choice 要使用 0
 
-    ##### 在原 DataFrame 上直接去掉在指定的column 'column_index' 中包含 NaN 的 所有rows
+    ##### 去掉df在指定的column 'column_index' 中包含 NaN 的 所有rows 並付值給df_restrict. df本身直接去掉會出現問題, 原因不明 ?
     # df.dropna(subset=[df.columns[column_index]], inplace=True)
     df_restrict = df.dropna(subset=[df.columns[column_index]])
 
