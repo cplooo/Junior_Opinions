@@ -38,7 +38,8 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
 
     ##### 将字符串按split_symbol分割并展平以及前處理
     if row_rank==True:
-        split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number])).explode()
+        # split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: ';'.join(x[:row_rank_number])).explode()
+        split_values = df.iloc[:,column_index].str.split(split_symbol).apply(lambda x: x[:row_rank_number]).explode()
     else:
         split_values = df.iloc[:,column_index].str.split(split_symbol).explode()  ## split_symbol=';'
 
