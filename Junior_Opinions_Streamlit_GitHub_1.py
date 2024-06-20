@@ -32,9 +32,11 @@ def Frequency_Distribution(df, column_index, split_symbol=';', dropped_string='�
     #### split_values資料前處理
     ### 去掉每一個字串前後的space
     split_values = split_values.str.strip()
-    # ### 將以 '其他' 開頭的字串簡化為 '其他'
-    # split_values_np = np.where(split_values.str.startswith('其他'), '其他', split_values)
-    # split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
+    ### 將以 '其他' 開頭的字串簡化為 '其他'; 
+    ## <注意> np.where 的邏輯中，NaN/NA 不被視為 False，而是默認處理為 True, 因此，np.where 將 NaN/NA 視為符合條件，並將其替換為 '其他'。
+    ## 如果不希望 NaN/NA 值被替換為 '其他'，可以在使用 np.where 之前明確地將 NaN 值處理為 False，或者在替換時保留 NaN 值。
+    split_values_np = np.where(split_values.str.startswith('其他').fillna(False), '其他', split_values)
+    split_values = pd.Series(split_values_np)  ## 轉換為 pandas.core.series.Series
     
     ##### 计算不同子字符串的出现次数以及前處理
     value_counts = split_values.value_counts()
