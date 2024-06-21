@@ -825,7 +825,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">基本資料</p>
+<p class="bold-small-font">Part 1.基本資料</p>
 """, unsafe_allow_html=True)
 
 ###### 1-1.各班級填答人數與填答比例
@@ -1171,7 +1171,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">工讀情況</p>
+<p class="bold-small-font">Part 2.工讀情況</p>
 """, unsafe_allow_html=True)
 
 ###### 2-1.您三年級就學期間是否曾工讀？
@@ -1667,7 +1667,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">課外活動參與情況</p>
+<p class="bold-small-font">Part 3.課外活動參與情況</p>
 """, unsafe_allow_html=True)
 
 ###### 3-1.您認為下列哪些經驗對未來工作會有所幫助？(可複選)
@@ -1962,7 +1962,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">學習情況與能力培養</p>
+<p class="bold-small-font">Part 4.學習情況與能力培養</p>
 """, unsafe_allow_html=True)
 
 
@@ -2441,7 +2441,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">大四或畢業後之規劃</p>
+<p class="bold-small-font">Part 5.大四或畢業後之規劃</p>
 """, unsafe_allow_html=True)
 
 ###### 5-1.大四或畢業後規劃參加項目「專業證照考試」
@@ -2667,7 +2667,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">學生學習資源與輔導資源滿意度</p>
+<p class="bold-small-font">Part 6.學生學習資源與輔導資源滿意度</p>
 """, unsafe_allow_html=True)
 
 
@@ -2894,7 +2894,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">生涯就業輔導</p>
+<p class="bold-small-font">Part 7.生涯就業輔導</p>
 """, unsafe_allow_html=True)
 
 
@@ -3085,7 +3085,7 @@ st.markdown("""
     font-weight:bold !important;
 }
 </style>
-<p class="bold-small-font">就學期間</p>
+<p class="bold-small-font">Part 8.就學期間對於師長的感受</p>
 """, unsafe_allow_html=True)
 
 
