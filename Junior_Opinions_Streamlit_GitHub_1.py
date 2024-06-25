@@ -427,6 +427,7 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         # plt.show()
         ### 在Streamlit中显示
         st.pyplot(plt)
+        plt.close()  # 關閉當前圖形以釋放內存
 
     if 系_院_校 == '1':
     # else:  ## 包含 系_院_校 == '1', 系_院_校 == '2'
@@ -487,6 +488,7 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         # plt.show()
         ### 在Streamlit中显示
         st.pyplot(plt)
+        plt.close()  # 關閉當前圖形以釋放內存
         
     if 系_院_校 == '2':
     # else:  ## 包含 系_院_校 == '1', 系_院_校 == '2'
@@ -547,6 +549,7 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
         # plt.show()
         ### 在Streamlit中显示
         st.pyplot(plt)
+        plt.close()  # 關閉當前圖形以釋放內存
 
 
 
@@ -727,6 +730,7 @@ def Draw(系_院_校, column_index, split_symbol=';', dropped_string='沒有工�
     ### 在Streamlit中显示
     # if 系_院_校 == '0' or '1':
     st.pyplot(plt)
+    plt.close()  # 關閉當前圖形以釋放內存
 
 
 
