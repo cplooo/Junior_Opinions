@@ -772,7 +772,7 @@ university_faculties_list = ['全校','理學院','資訊學院','管理學院',
 系_院_校 = st.text_input('以學系查詢請輸入 0, 以學院查詢請輸入 1, 以全校查詢請輸入 2  (說明: (i).以學系查詢時同時呈現學院及全校資料. (ii)可以選擇比較單位): ', value='0')
 if 系_院_校 == '0':
     choice = st.selectbox('選擇學系', df_junior_original['科系'].unique(), index=0)
-    choice = '大傳系'
+    # choice = '大傳系'
     df_junior = df_junior_original[df_junior_original['科系']==choice]
     choice_faculty = df_junior['學院'].values[0]  ## 選擇學系所屬學院
     df_junior_faculty = df_junior_original[df_junior_original['學院']==choice_faculty]  ## 挑出全校所屬學院之資料
